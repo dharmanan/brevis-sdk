@@ -36,45 +36,30 @@ const (
 )
 
 type ReceiptData struct {
-	TxHash         common.Hash    `json:"tx_hash,omitempty"`         // Required value
-	BlockNum       *big.Int       `json:"block_num,omitempty"`       // Optional value
-	BlockBaseFee   *big.Int       `json:"block_base_fee,omitempty"`  // Optional value
-	MptKeyPath     *big.Int       `json:"mpt_key_path,omitempty"`    // Optional value
-	Fields         []LogFieldData `json:"fields,omitempty"`          // required value
-	BlockTimestamp uint64         `json:"block_timestamp,omitempty"` // Optional value
+	TxHash         common.Hash    `json:"tx_hash,omitempty"`
+	BlockNum       *big.Int       `json:"block_num,omitempty"`
+	BlockBaseFee   *big.Int       `json:"block_base_fee,omitempty"`
+	MptKeyPath     *big.Int       `json:"mpt_key_path,omitempty"`
+	Fields         []LogFieldData `json:"fields,omitempty"`
+	BlockTimestamp uint64         `json:"block_timestamp,omitempty"`
 }
 
 type LogFieldData struct {
-	// The contract from which the event is emitted
-	// Optional value
 	Contract common.Address `json:"contract,omitempty"`
-	// The event ID of the event to which the field belong (aka topics[0])
-	// Optional value
 	EventID common.Hash `json:"event_id,omitempty"`
-	// the log's position in the receipt
-	// Required value
 	LogPos uint `json:"log_index,omitempty"`
-	// Whether the field is a topic (aka "indexed" as in solidity events)
-	// Required value
 	IsTopic bool `json:"is_topic,omitempty"`
-	// The index of the field in either a log's topics or data. For example, if a
-	// field is the second topic of a log, then FieldIndex is 1; if a field is the
-	// third field in the RLP decoded data, then FieldIndex is 2.
-	// Required value
 	FieldIndex uint `json:"field_index,omitempty"`
-	// The value of the field in event, aka the actual thing we care about, only
-	// 32-byte fixed length values are supported.
-	// Optional value
 	Value common.Hash `json:"value,omitempty"`
 }
 
 type StorageData struct {
-	BlockNum       *big.Int       `json:"block_num,omitempty"`       // Required value
-	BlockBaseFee   *big.Int       `json:"block_base_fee,omitempty"`  // Optional value
-	Address        common.Address `json:"address,omitempty"`         // Required value
-	Slot           common.Hash    `json:"slot,omitempty"`            // Required value
-	Value          common.Hash    `json:"value,omitempty"`           // Optional value
-	BlockTimestamp uint64         `json:"block_timestamp,omitempty"` // Optional value
+	BlockNum       *big.Int       `json:"block_num,omitempty"`
+	BlockBaseFee   *big.Int       `json:"block_base_fee,omitempty"`
+	Address        common.Address `json:"address,omitempty"`
+	Slot           common.Hash    `json:"slot,omitempty"`
+	Value          common.Hash    `json:"value,omitempty"`
+	BlockTimestamp uint64         `json:"block_timestamp,omitempty"`
 }
 
 type TransactionData struct {
@@ -781,12 +766,13 @@ func (q *BrevisApp) waitFinalProofSubmitted(cancel <-chan struct{}) (common.Hash
 			if err != nil {
 				return common.Hash{}, fmt.Errorf("error querying proof status: %s", err.Error())
 			}
-			if res.Status == gwproto.QueryStatus_QS_COMPLETE {
+			switch res.Status {
+			case gwproto.QueryStatus_QS_COMPLETE:
 				fmt.Printf("final proof for query %x submitted: tx %s\n", q.queryId, res.TxHash)
 				return common.HexToHash(res.TxHash), nil
-			} else if res.Status == gwproto.QueryStatus_QS_FAILED {
+			case gwproto.QueryStatus_QS_FAILED:
 				return common.Hash{}, fmt.Errorf("proof submission status Failure")
-			} else {
+			default:
 				fmt.Printf("polling for final proof submission: status %s\n", res.Status)
 			}
 		case <-cancel:
