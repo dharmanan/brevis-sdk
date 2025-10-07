@@ -1,0 +1,118 @@
+/* Step narration styles */
+.step-title {
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 5px;
+}
+
+.step-description {
+  color: #555;
+  margin-top: 5px;
+}
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+ 
+
+.app-container {
+  background: white;
+  padding: 40px 50px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+}
+
+.app-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #1a202c;
+}
+
+.app-header p {
+  color: #555;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+.proof-form {
+  display: block;
+  width: 100%;
+}
+
+.proof-form input {
+  width: 100%;
+  padding: 20px 18px;
+  font-size: 1.25rem;
+  border-radius: 10px;
+  border: 1.5px solid #3182ce;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  text-align: left;
+  background: #f8fafc;
+  color: #1a202c;
+  font-family: inherit;
+}
+
+.proof-form button {
+  width: 100%;
+  padding: 18px 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
+  background-color: #3182ce;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 4px 14px 0 rgba(49, 130, 206, 0.39);
+  letter-spacing: 0.5px;
+  text-transform: none;
+  display: block;
+}
+
+.proof-form button:hover {
+  background-color: #2b6cb0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(49, 130, 206, 0.45);
+}
+
+.proof-form button:active {
+  transform: translateY(1px);
+}
+
+.proof-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.status-area {
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 8px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.status-success {
+  border: 1px solid #38a169;
+  background-color: #f0fff4;
+  color: #2f855a;
+}
+
+.status-error {
+  border: 1px solid #e53e3e;
+  background-color: #fff5f5;
+  color: #c53030;
+}
