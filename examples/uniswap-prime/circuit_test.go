@@ -2,6 +2,7 @@
 
 package main
 
+import "os"
 import (
     "math/big"
     "testing"
@@ -13,7 +14,7 @@ import (
 
 func TestAppCircuit(t *testing.T) {
     chainId := uint64(1)
-    rpcUrl := "https://mainnet.infura.io/v3/392b6fec32744b34a4850eb2ce3cea2c"
+    rpcUrl := os.Getenv("INFURA_RPC_URL")
     outDir := "/tmp/brevisapp_out"
     app, err := sdk.NewBrevisApp(chainId, rpcUrl, outDir)
     if err != nil {
